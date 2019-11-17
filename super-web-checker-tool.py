@@ -21,7 +21,6 @@ urlok = []
 urlbad = []
 
 #Hacemos una primera review de links, buscando links internos dentro del dominio o referencias de la misma página con #
-#### No funciona... el # REVISAR
 def review_links(href_website):
     for n,i in enumerate(href_website):
         if '#' in i:
@@ -51,6 +50,14 @@ def check_ulr(url_list):
             urlok.append(url)
     return urlok, urlbad
 
+#Eliminarmos los links repetidos y los ordenamos.
+def eliminar_repetidos(lista):
+    lista_final=[]
+    for elemento in lista:
+        if not elemento in lista_final:
+            lista_final.append(elemento)
+    lista_final.sort()
+    return lista_final
 
 #Leemos la web y guardamos en href_website los links encontrados
 page = requests.get(url_base)
@@ -65,10 +72,13 @@ url_list,link_interno = review_links(href_website)
 
 urlok, urlbad = check_ulr(url_list)
 urlok, urlbad = check_ulr(link_interno)
+lista_final = eliminar_repetidos(urlok)
 
 #Resumen de resultados y listado de link inválidos. 
 print('Links ok:', len(urlok))
 print('Links ko:', len(urlbad))
+print('Links Correctos únicos:', len(lista_final))
+
 if len(urlbad) == 0:
     print ('Todas las URLs del site están correctas')
 else:
@@ -76,6 +86,7 @@ else:
     print ('Links incorrectos: ')
     for link in urlbad:
         print (link)
+
         
         
 #Fin.. por el momento
