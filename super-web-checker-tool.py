@@ -20,7 +20,8 @@ href_website = []
 urlok = []
 urlbad = []
 
-#Hacemos una primera review de links, buscando links internos dentro del dominio o referencias de la misma página con #
+#Hacemos una primera review de links, buscando links internos dentro del 
+#dominio o referencias de la misma página con #
 def review_links(href_website):
     for n,i in enumerate(href_website):
         if '#' in i:
