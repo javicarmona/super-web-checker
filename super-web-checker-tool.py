@@ -10,30 +10,29 @@ import requests
 from bs4 import BeautifulSoup
 from requests.exceptions import HTTPError
 
-import requests
-from bs4 import BeautifulSoup
-from requests.exceptions import HTTPError
-
 #Definimos las variables que vamos a necesitar, listas donde irán las urls
 #La url base no debe acabar con '/', aquí es dodne buscaremos los links. 
 
 url_base = 'https://www.neutrogena.es' 
 url_list = []
+link_interno=[]
 href_website = []
 urlok = []
 urlbad = []
 
 #Hacemos una primera review de links, buscando links internos dentro del dominio o referencias de la misma página con #
 #### No funciona... el # REVISAR
-def review_links(url_list):
-    for n,i in enumerate(url_list):
-        #Si el link empieza con / son links dentro del dominio, por ello
-        #debemos montar la ulr completa, incluyendo el dominio. 
-        if i[0]== '/':
-            url_list[n]=url_base+i
-        #Los links internos con # dan error, por ello los eliminamos. 
-        #if '#' in i:
-        #    del url_list[n]
+def review_links(href_website):
+    for n,i in enumerate(href_website):
+        if '#' in i:
+            continue
+        elif i[0]== '/':
+            link=url_base+i
+            link_interno.append(link)
+        else:
+            url_list.append(i)
+    return url_list,link_interno
+
 
  
 #Definimos una función que recibe una lista de urls y chequea cada una
@@ -50,6 +49,7 @@ def check_ulr(url_list):
             urlbad.append(url)
         else:
             urlok.append(url)
+    return urlok, urlbad
 
 
 #Leemos la web y guardamos en href_website los links encontrados
@@ -61,8 +61,10 @@ for href in soup.find_all('a', href=True):
     
 print('Links extraidos de:',url_base,'>>', len(href_website))
 #Lanzamos los 2 procesos, limpiar links no válidos y chequear los links. 
-review_links(href_website)  
-check_ulr(href_website)
+url_list,link_interno = review_links(href_website)  
+
+urlok, urlbad = check_ulr(url_list)
+urlok, urlbad = check_ulr(link_interno)
 
 #Resumen de resultados y listado de link inválidos. 
 print('Links ok:', len(urlok))
