@@ -17,13 +17,14 @@ from requests.exceptions import HTTPError
 #Definimos las variables que vamos a necesitar, listas donde irán las urls
 #La url base no debe acabar con '/', aquí es dodne buscaremos los links. 
 
-url_base = 'https://koldopina.com/blog' 
+url_base = 'https://www.neutrogena.es' 
 url_list = []
 href_website = []
 urlok = []
 urlbad = []
 
 #Hacemos una primera review de links, buscando links internos dentro del dominio o referencias de la misma página con #
+#### No funciona... el # REVISAR
 def review_links(url_list):
     for n,i in enumerate(url_list):
         #Si el link empieza con / son links dentro del dominio, por ello
@@ -31,8 +32,9 @@ def review_links(url_list):
         if i[0]== '/':
             url_list[n]=url_base+i
         #Los links internos con # dan error, por ello los eliminamos. 
-        if '#' in i:
-            url_list.pop(n) 
+        #if '#' in i:
+        #    del url_list[n]
+
  
 #Definimos una función que recibe una lista de urls y chequea cada una
 #de ellas, las correctas van a una lista, las incorrectas a otra.           
@@ -72,4 +74,6 @@ else:
     print ('Links incorrectos: ')
     for link in urlbad:
         print (link)
+        
+        
 #Fin.. por el momento
