@@ -13,5 +13,7 @@ Only with the domain URL the will check all the links inside the site and check 
 ### Starting 🚀
 
 You only going to need the modules #requests and #beautifulsoup
+
 pip install beautifulsoup4
+
 pip install requests
