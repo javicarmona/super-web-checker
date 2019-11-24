@@ -1,7 +1,7 @@
 ### I am Groot █║▌│█│║▌║││█║▌║▌║
 and this is my app for check all the links in a domain
 
-![](iamgroot.gif)
+![](readme/iamgroot.gif)
                  
 Checking website links works
 
