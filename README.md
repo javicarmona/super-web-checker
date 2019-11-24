@@ -3,7 +3,6 @@ and this is my app for check all the links in a domain
 
 ![](readme/iamgroot.gif)
 
-Checking website links works
 
 ### What is this? 📄
 
